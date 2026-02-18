@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DEPARTMENTS_OPTIONS } from "@/constans";
+import { DEPARTMENTS_OPTIONS } from "@/constants";
 import { Subject } from "@/types";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";

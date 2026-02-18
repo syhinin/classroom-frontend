@@ -10,11 +10,12 @@ import axios from "axios";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 
 import "./App.css";
+import { dataProvider2 } from "@/providers/data"
+import { dataProvider } from "./providers/data";
 import { Toaster } from "./components/refine-ui/notification/toaster";
 import { useNotificationProvider } from "./components/refine-ui/notification/use-notification-provider";
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { CredentialResponse } from "./interfaces/google";
-import { dataProvider } from "./providers/data";
 import { parseJwt } from "./utils/parse-jwt";
 import { Dashboard } from "./pages/Dashboard";
 import { SubjectList } from "./pages/subjects/list";
@@ -114,7 +115,7 @@ function App() {
         <ThemeProvider>
           <DevtoolsProvider>
             <Refine
-              dataProvider={dataProvider}
+              dataProvider={dataProvider2}
               notificationProvider={useNotificationProvider()}
               routerProvider={routerProvider}
               authProvider={authProvider}

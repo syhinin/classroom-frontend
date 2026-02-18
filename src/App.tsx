@@ -1,10 +1,7 @@
-import {
-  AuthProvider,
-  Refine,
-} from "@refinedev/core";
+import { AuthProvider, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-import { Home } from "lucide-react";
+import { BookOpen, Home } from "lucide-react";
 import routerProvider, {
   DocumentTitleHandler,
   UnsavedChangesNotifier,
@@ -20,6 +17,8 @@ import { CredentialResponse } from "./interfaces/google";
 import { dataProvider } from "./providers/data";
 import { parseJwt } from "./utils/parse-jwt";
 import { Dashboard } from "./pages/Dashboard";
+import { SubjectList } from "./pages/subjects/list";
+import { SubjectCreate } from "./pages/subjects/create";
 import { Layout } from "./components/refine-ui/layout/layout";
 
 const axiosInstance = axios.create();
@@ -43,7 +42,7 @@ function App() {
           JSON.stringify({
             ...profileObj,
             avatar: profileObj.picture,
-          })
+          }),
         );
 
         localStorage.setItem("token", `${credential}`);
@@ -133,16 +132,32 @@ function App() {
                     icon: <Home />,
                   },
                 },
+                {
+                  name: "subjects",
+                  list: "/subjects",
+                  create: "/subjects/create",
+                  meta: {
+                    label: "Subjects",
+                    icon: <BookOpen />,
+                  },
+                },
+                
               ]}
             >
               <Routes>
-                <Route element={
-                  <Layout>
-                    <Outlet />
-                  </Layout>
-                }>
+                <Route
+                  element={
+                    <Layout>
+                      <Outlet />
+                    </Layout>
+                  }
+                >
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/subjects">
+                    <Route index element={<SubjectList />} />
+                    <Route path="create" element={<SubjectCreate />} />
+                  </Route>
                 </Route>
-                <Route path="/" element={<Dashboard />} />
               </Routes>
               <Toaster />
               <RefineKbar />

@@ -1,7 +1,7 @@
 import { AuthProvider, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-import { BookOpen, Home } from "lucide-react";
+import { BookOpen, GraduationCap, Home } from "lucide-react";
 import routerProvider, {
   DocumentTitleHandler,
   UnsavedChangesNotifier,
@@ -20,6 +20,8 @@ import { Dashboard } from "./pages/Dashboard";
 import { SubjectList } from "./pages/subjects/list";
 import { SubjectCreate } from "./pages/subjects/create";
 import { Layout } from "./components/refine-ui/layout/layout";
+import { ClassesList } from "./pages/classes/list";
+import { ClassesCreate } from "./pages/classes/create";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -141,6 +143,15 @@ function App() {
                     icon: <BookOpen />,
                   },
                 },
+                {
+                  name: "classes",
+                  list: "/classes",
+                  create: "/classes/create",
+                  meta: {
+                    label: "Classes",
+                    icon: <GraduationCap />,
+                  },
+                },
 
               ]}
             >
@@ -156,6 +167,10 @@ function App() {
                   <Route path="/subjects">
                     <Route index element={<SubjectList />} />
                     <Route path="create" element={<SubjectCreate />} />
+                  </Route>
+                  <Route path="/classes">
+                    <Route index element={<ClassesList />} />
+                    <Route path="create" element={<ClassesCreate />} />
                   </Route>
                 </Route>
               </Routes>

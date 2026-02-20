@@ -10,7 +10,6 @@ import axios from "axios";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 
 import "./App.css";
-import { dataProvider2 } from "@/providers/data"
 import { dataProvider } from "./providers/data";
 import { Toaster } from "./components/refine-ui/notification/toaster";
 import { useNotificationProvider } from "./components/refine-ui/notification/use-notification-provider";
@@ -115,7 +114,7 @@ function App() {
         <ThemeProvider>
           <DevtoolsProvider>
             <Refine
-              dataProvider={dataProvider2}
+              dataProvider={dataProvider}
               notificationProvider={useNotificationProvider()}
               routerProvider={routerProvider}
               authProvider={authProvider}
@@ -142,7 +141,7 @@ function App() {
                     icon: <BookOpen />,
                   },
                 },
-                
+
               ]}
             >
               <Routes>

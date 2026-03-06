@@ -1,6 +1,7 @@
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
+  getCloudinaryConfig,
 } from "@/constants";
 import { UploadWidgetValue } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -16,11 +17,13 @@ export const UploadWidget = ({
     url: string;
     publicId: string;
   } | null;
-  onChange: (file: any, field: any) => void;
+  onChange: (file: any) => void;
   disabled?: boolean;
 }) => {
   const widgetRef = useRef<CloudinaryWidget | null>(null);
   const onChangeRef = useRef(onChange);
+
+  const { cloudName, uploadPreset } = getCloudinaryConfig();
 
   const [preview, setPreview] = useState<UploadWidgetValue | null>(value);
 
@@ -40,8 +43,8 @@ export const UploadWidget = ({
 
       widgetRef.current = window.cloudinary?.createUploadWidget(
         {
-          cloudName: CLOUDINARY_CLOUD_NAME,
-          uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+          cloudName,
+          uploadPreset,
           multiple: false,
           folder: "uploads",
           maxFileSize: 5_000_000,
@@ -81,6 +84,7 @@ export const UploadWidget = ({
 
   const removeFromCloudinary = () => {
     setPreview(null);
+    onChangeRef.current?.(null);
   };
 
   const handleKeyEvent = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -98,7 +102,7 @@ export const UploadWidget = ({
             variant="outline"
             size="icon"
             className="rounded-full -top-4 -right-4 absolute"
-            aria-label="Submit"
+            aria-label="Remove image"
             onClick={removeFromCloudinary}
           >
             <XIcon />
